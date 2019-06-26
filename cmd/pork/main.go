@@ -17,4 +17,5 @@ func init() {
 		Short: "pork is a github tools for search, fork, pull request.",
 	}
 	rootCmd.AddCommand(pork.SearchCmd)
+	rootCmd.AddCommand(pork.DocsCmd)
 }
