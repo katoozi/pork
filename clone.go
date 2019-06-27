@@ -1,7 +1,10 @@
 package pork
 
 import (
+	"fmt"
 	"log"
+
+	"github.com/spf13/viper"
 
 	"github.com/spf13/cobra"
 )
@@ -22,6 +25,17 @@ var CloneCmd = &cobra.Command{
 
 // CloneRepo will clone github repo into destination
 func CloneRepo(repo string, ref string, shouldCreate bool) error {
+	repository, err := NewGHRepo(repo)
+	if err != nil {
+		return err
+	}
+	if err := repository.Clone(viper.GetString("location")); err != nil {
+		return err
+	}
+	fmt.Printf("Cloned Repo to:%s\n", repository.RepoDir)
+	if err := repository.Checkout(ref, shouldCreate); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -31,6 +45,6 @@ var (
 )
 
 func init() {
-	CloneCmd.PersistentFlags().StringVar(&ref, "ref", "", "specific refrence to check out")
+	CloneCmd.PersistentFlags().StringVar(&ref, "ref", "master", "specific refrence to check out")
 	CloneCmd.PersistentFlags().BoolVar(&create, "create", false, "create refrence if it does not exist.")
 }
