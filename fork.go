@@ -65,6 +65,6 @@ func ForkSuccess(resp *http.Response, _ interface{}) error {
 	}
 	respContent := ForkResponse{}
 	json.Unmarshal(content, &respContent)
-	fmt.Printf("Forked to repository: %s", respContent.FullName)
+	fmt.Printf("Forked to repository: %s\n", respContent.FullName)
 	return nil
 }
