@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"gopkg.in/src-d/go-git.v4/config"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 
 	git "gopkg.in/src-d/go-git.v4"
@@ -62,4 +63,12 @@ func (g *GHRepo) Checkout(ref string, create bool) error {
 		return err
 	}
 	return workTree.Checkout(opts)
+}
+
+func (g *GHRepo) AddUpstream(githubRepo *GHRepo) error {
+	_, err := g.repo.CreateRemote(&config.RemoteConfig{
+		Name: "upstream",
+		URLs: []string{githubRepo.RepoURL()},
+	})
+	return err
 }
