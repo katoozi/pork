@@ -6,6 +6,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type SearchResults struct {
+	HomeURL    string `json:"html_url"`
+	FullName   string `json:"full_name"`
+	Name       string `json:"name"`
+	ForksCount int    `json:"forks_count"`
+}
+
+type SearchReponse struct {
+	Results           []*SearchResults `json:"items"`
+	TotalCount        int              `json:"total_count"`
+	IncompleteResults bool             `json:"incomplete_results"`
+}
+
 // SearchCmd is a subcommand of pork
 var SearchCmd = &cobra.Command{
 	Use:   "search",
