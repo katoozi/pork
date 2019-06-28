@@ -13,6 +13,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// SearchResults is a sub result of github search respone
 type SearchResults struct {
 	HomeURL    string `json:"html_url"`
 	FullName   string `json:"full_name"`
@@ -20,12 +21,14 @@ type SearchResults struct {
 	ForksCount int    `json:"forks_count"`
 }
 
+// SearchReponse is github search response json schema
 type SearchReponse struct {
 	Results           []*SearchResults `json:"items"`
 	TotalCount        int              `json:"total_count"`
 	IncompleteResults bool             `json:"incomplete_results"`
 }
 
+// ToString will print results in console
 func (s *SearchReponse) ToString() string {
 	response := ""
 	for _, v := range s.Results {
@@ -52,6 +55,7 @@ func SearchByKeyword(keywords []string) error {
 	})
 }
 
+// SearchSuccess is call back function that handle the successfull requests
 func SearchSuccess(resp *http.Response, _ interface{}) error {
 	defer resp.Body.Close()
 	content, err := ioutil.ReadAll(resp.Body)
@@ -64,10 +68,12 @@ func SearchSuccess(resp *http.Response, _ interface{}) error {
 	return nil
 }
 
+// SearchDefaultRouter will handle the call back if unhandled response
 func SearchDefaultRouter(resp *http.Response, _ interface{}) error {
 	return fmt.Errorf("status code %d", resp.StatusCode)
 }
 
+// GetSearchResource will create Search RestResource
 func GetSearchResource() *nap.RestResource {
 	searchRouter := nap.NewRouter()
 	searchRouter.DefaultRouter = SearchDefaultRouter

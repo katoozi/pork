@@ -11,6 +11,7 @@ import (
 	git "gopkg.in/src-d/go-git.v4"
 )
 
+// GHRepo is a struct that hold github repo info
 type GHRepo struct {
 	RepoDir string
 	owner   string
@@ -18,6 +19,7 @@ type GHRepo struct {
 	repo    *git.Repository
 }
 
+// NewGHRepo is GHRepo factory function
 func NewGHRepo(repo string) (*GHRepo, error) {
 	values := strings.Split(repo, "/")
 	if len(values) != 2 {
@@ -29,10 +31,12 @@ func NewGHRepo(repo string) (*GHRepo, error) {
 	}, nil
 }
 
+// RepoURL will generate github repo clone url
 func (g *GHRepo) RepoURL() string {
 	return fmt.Sprintf("https://github.com/%s/%s.git", g.owner, g.project)
 }
 
+// Clone will clone the github repo
 func (g *GHRepo) Clone(dest string) error {
 	fullPath := filepath.Join(dest, fmt.Sprintf("%s-%s", g.owner, g.project))
 	repo, err := git.PlainClone(fullPath, false, &git.CloneOptions{
@@ -46,6 +50,7 @@ func (g *GHRepo) Clone(dest string) error {
 	return nil
 }
 
+// Checkout can create branch or just check to existence branch
 func (g *GHRepo) Checkout(ref string, create bool) error {
 	opts := &git.CheckoutOptions{
 		Branch: plumbing.NewBranchReferenceName(fmt.Sprintf("refs/heads/%s", ref)),
@@ -65,6 +70,7 @@ func (g *GHRepo) Checkout(ref string, create bool) error {
 	return workTree.Checkout(opts)
 }
 
+// AddUpstream will create upstream for github repo
 func (g *GHRepo) AddUpstream(githubRepo *GHRepo) error {
 	_, err := g.repo.CreateRemote(&config.RemoteConfig{
 		Name: "upstream",

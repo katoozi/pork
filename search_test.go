@@ -3,8 +3,7 @@ package pork
 import "testing"
 
 func TestSearchByKeyword(t *testing.T) {
-	repos := SearchByKeyword([]string{"one, two", "three"})
-	if repos[0] != "myrepo" {
+	if err := SearchByKeyword([]string{"one, two", "three"}); err == nil {
 		t.Fail()
 	}
 }
