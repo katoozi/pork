@@ -42,7 +42,7 @@ func GetRepoReadme(repo string) error {
 	return GitHubAPI().Call("docs", map[string]string{
 		"owner":   values[0],
 		"project": values[1],
-	})
+	}, nil)
 }
 
 // ReadmeSuccess will execute when request was success

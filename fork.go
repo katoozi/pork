@@ -42,7 +42,7 @@ func ForkRepo(repo string) error {
 	return GitHubAPI().Call("fork", map[string]string{
 		"owner": values[0],
 		"repo":  values[1],
-	})
+	}, nil)
 }
 
 // GetForkResource will set the rest api options for fork command

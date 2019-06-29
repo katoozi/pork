@@ -25,6 +25,7 @@ func init() {
 	rootCmd.AddCommand(pork.CloneCmd)
 	rootCmd.AddCommand(pork.ForkCmd)
 	rootCmd.AddCommand(pork.DocsCmd)
+	rootCmd.AddCommand(pork.PullRequestCmd)
 	viper.SetDefault("location", os.Getenv("HOME"))
 	viper.SetConfigName("pork")
 	viper.AddConfigPath(".")

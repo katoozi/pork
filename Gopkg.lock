@@ -32,6 +32,12 @@
   revision = "d14ea06fba99483203c19d92cfcd13ebe73135f4"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/katoozi/go-devops-tools"
+  packages = ["nap"]
+  revision = "e3de3e076880ada7faab19c245a397fc6472b2d2"
+
+[[projects]]
   name = "github.com/kevinburke/ssh_config"
   packages = ["."]
   revision = "81db2a75821ed34e682567d48be488a1c3121088"
@@ -131,7 +137,7 @@
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context","internal/socks","proxy"]
-  revision = "3b0461eec859c4b73bb64fdc8285971fd33e3938"
+  revision = "da137c7871d730100384dbcf36e6f8fa493aef5b"
 
 [[projects]]
   branch = "master"
@@ -172,6 +178,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "01d7fb0a03ad11793598dbda74a79a1fbad9a737bd301deb9c2e0462d8410ecb"
+  inputs-digest = "ecb1cd10a89585e191fae9e91be39e81059a60889f9610f23c592a85d26e6072"
   solver-name = "gps-cdcl"
   solver-version = 1
